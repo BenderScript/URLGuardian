@@ -164,3 +164,4 @@ tests/*/
 !tests/dlp/
 
 *.db
+/urlguardian/abuse_list.txt

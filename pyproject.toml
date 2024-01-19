@@ -1,0 +1,18 @@
+[tool.poetry]
+name = "urlguardian"
+version = "0.1.0"
+description = "Checks URL for abuse"
+authors = ["BenderScript <6779302+BenderScript@users.noreply.github.com>"]
+license = "Apache 2.0"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+httpx = "^0.25.2"
+fastapi = "^0.109.0"
+requests = "^2.31.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
