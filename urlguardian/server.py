@@ -59,6 +59,6 @@ async def check_url(url_check_request: URLCheckRequest, request: Request):
     url = url_check_request.url
     url_manager = request.app.state.url_manager
     if url_manager.check_url(url):
-        return {"status": "URL is in the list"}
+        return {"status": "URL is malware"}
     else:
-        return {"status": "URL not found"}
+        return {"status": "URL is safe"}
