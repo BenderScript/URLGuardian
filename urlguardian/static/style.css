@@ -28,10 +28,31 @@ body {
     width: 90%;
 }
 
+.result-container {
+    width: calc(40ch + 20px);
+    min-height: calc(3em + 10px);
+    overflow: auto; /* Adds scrollbar if content overflows */
+    border: 1px solid #ccc; /* For visual boundary */
+    font-family: monospace; /* Ensures consistent character width */
+    background-color: rgba(255, 255, 255, 0.5);
+    line-height: 1em; /* Line height to match character height */
+    display: flex; /* Flexbox layout */
+    align-items: center; /* Center content vertically */
+    justify-content: center; /* Center content horizontally */
+    color: transparent; /* Make text transparent */
+    margin-bottom: 20px; /* Adjust this value as needed */
+}
+
+.result-container::before {
+    content: ' '; /* Invisible character to maintain height */
+    color: black; /* Default text color */
+}
+
 h1 {
     color: #FFFFFF; /* Lighter color for "URL Guardian" */
 }
 textarea {
+    background-color: rgba(255, 255, 255, 0.8);
     width: calc(40ch + 20px);
     min-height: calc(3em + 10px);
     margin-bottom: 10px;
@@ -40,7 +61,7 @@ textarea {
     overflow-y: auto;
 }
 #check_url_button {
-    margin-bottom: 40px; /* Adjust this value as needed */
+    margin-bottom: 20px; /* Adjust this value as needed */
 }
 button {
     background-color: #6E7B8B;
@@ -56,11 +77,13 @@ button:hover {
 }
 /* Change color of labels */
 label {
-    color: #4B5563; /* Set to the same color as the button's background */
+    color: #4B5563;
 }
 
 /* Change color of URL Guardian */
 #url_guardian {
-    color: #4B5563; /* Set to the same color as the button's background */
+    color: black;
+    /* color: #4B5563; */
 }
+
 

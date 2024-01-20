@@ -45,18 +45,23 @@
             const result = await response.json(); // Parse the JSON response
 
             // Update the page with the response
-            document.getElementById('check_url_result').innerText = result.status;
+            document.getElementById('result_div').innerText = result.status;
         }
     </script>
 </head>
 <body>
     <div class="container">
         <h1 id="url_guardian">URL Guardian</h1>
-        <label for="url_text">Enter prompt to check URLs:</label> <!-- Label for the first textarea -->
+        <label for="url_text">Enter prompt:</label> <!-- Label for the first textarea -->
         <textarea id="url_text" class="large-input"></textarea>
         <button id="check_url_button">Check URL</button>
-        <div id="check_url_result" class="result-container"></div>
-        <label for="add_url_text">Enter URL to add:</label> <!-- Label for the second textarea -->
+
+        <label for="result_div">Result:</label> <!-- Label for the second textarea -->
+        <div id="result_div" class="result-container">
+            <!-- Content will be added here -->
+        </div>
+
+        <label for="add_url_text">Enter URL:</label> <!-- Label for the second textarea -->
         <textarea id="add_url_text" class="large-input"></textarea>
         <button id="add-url-button" onclick="addURL(event)">Add URL</button>
     </div>
