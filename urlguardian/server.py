@@ -5,10 +5,11 @@ from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 
 from urlguardian.dependecies import URLListManager
+from urlguardian.helpers import extract_urls
 
 
 class URLCheckRequest(BaseModel):
-    url: str
+    text: str
 
 
 class URLAddRequest(BaseModel):
@@ -56,9 +57,10 @@ async def add_url(url_add_request: URLAddRequest, request: Request):
 
 @url_guardian_app.post("/check-url")  # Note the change to a POST request
 async def check_url(url_check_request: URLCheckRequest, request: Request):
-    url = url_check_request.url
+    urls = extract_urls(url_check_request.text)
     url_manager = request.app.state.url_manager
-    if url_manager.check_url(url):
-        return {"status": "URL is malware"}
-    else:
-        return {"status": "URL is safe"}
+    for url in urls:
+        if url_manager.check_url(url):
+            return {"status": "URL(s) are malware"}
+        else:
+            return {"status": "URL(s) are safe"}
