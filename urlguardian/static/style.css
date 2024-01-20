@@ -1,0 +1,66 @@
+
+body {
+    background-image: url('inside_line_art.png'); /* Ensuring background image is loaded */
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: center;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #f4f4f4;
+}
+
+.container {
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.5);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 600px;
+    width: 90%;
+}
+
+h1 {
+    color: #FFFFFF; /* Lighter color for "URL Guardian" */
+}
+textarea {
+    width: calc(40ch + 20px);
+    min-height: calc(3em + 10px);
+    margin-bottom: 10px;
+    padding: 10px;
+    box-sizing: border-box;
+    overflow-y: auto;
+}
+#check_url_button {
+    margin-bottom: 40px; /* Adjust this value as needed */
+}
+button {
+    background-color: #6E7B8B;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+button:hover {
+    background-color: #556B7C;
+}
+/* Change color of labels */
+label {
+    color: #4B5563; /* Set to the same color as the button's background */
+}
+
+/* Change color of URL Guardian */
+#url_guardian {
+    color: #4B5563; /* Set to the same color as the button's background */
+}
+
