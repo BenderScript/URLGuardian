@@ -7,7 +7,7 @@
     <title>URL Guardian</title>
     <style>
         body {
-            background-image: url('static/inside_house_door.png'); /* Ensuring background image is loaded */
+            background-image: url('static/inside_line_art.png'); /* Ensuring background image is loaded */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
@@ -23,7 +23,7 @@
         }
         .container {
             text-align: center;
-            background-color: rgba(255, 255, 255, 0.3);
+            background-color: rgba(255, 255, 255, 0.5);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
@@ -39,10 +39,13 @@
         textarea {
             width: calc(40ch + 20px);
             min-height: calc(3em + 10px);
-            margin-bottom: 20px;
+            margin-bottom: 10px;
             padding: 10px;
             box-sizing: border-box;
             overflow-y: auto;
+        }
+        #check-url-button {
+            margin-bottom: 40px; /* Adjust this value as needed */
         }
         button {
             background-color: #6E7B8B;
@@ -55,6 +58,15 @@
         }
         button:hover {
             background-color: #556B7C;
+        }
+        /* Change color of labels */
+        label {
+            color: #4B5563; /* Set to the same color as the button's background */
+        }
+
+        /* Change color of URL Guardian */
+        #url_guardian {
+            color: #4B5563; /* Set to the same color as the button's background */
         }
     </style>
     <script>
@@ -96,10 +108,10 @@
 </head>
 <body>
     <div class="container">
-        <h1>URL Guardian</h1>
-        <label for="check_url">Enter text to check URLs:</label> <!-- Label for the first textarea -->
+        <h1 id="url_guardian">URL Guardian</h1>
+        <label for="check_url">Enter prompt to check URLs:</label> <!-- Label for the first textarea -->
         <textarea id="check_url" class="large-input"></textarea>
-        <button onclick="checkURL()">Check URL</button>
+        <button id="check-url-button" onclick="checkURL()">Check URL</button>
         <label for="add_url">Enter URL to add:</label> <!-- Label for the second textarea -->
         <textarea id="add_url" class="large-input"></textarea>
         <button onclick="addURL()">Add URL</button>
