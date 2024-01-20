@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,90 +7,102 @@
     <title>URL Guardian</title>
     <style>
         body {
-            background-image: url('static/background.png');
+            background-image: url('static/inside_house_door.png'); /* Ensuring background image is loaded */
             background-size: cover;
             background-repeat: no-repeat;
             background-attachment: fixed;
+            background-position: center;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
+            height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
-            color: #333;
+            color: #f4f4f4;
         }
         .container {
             text-align: center;
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.3);
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 600px;
+            width: 90%;
         }
-        .input-group {
+        h1 {
+            color: #FFFFFF; /* Lighter color for "URL Guardian" */
+        }
+        textarea {
+            width: calc(40ch + 20px);
+            min-height: calc(3em + 10px);
             margin-bottom: 20px;
-        }
-        input[type="text"] {
-            width: 70%;
             padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 4px;
+            box-sizing: border-box;
+            overflow-y: auto;
         }
         button {
-            padding: 10px 20px;
+            background-color: #6E7B8B;
+            color: white;
             border: none;
             border-radius: 4px;
-            background-color: #007bff;
-            color: white;
+            padding: 10px 20px;
             cursor: pointer;
+            margin-bottom: 20px;
         }
         button:hover {
-            background-color: #0056b3;
+            background-color: #556B7C;
         }
     </style>
+    <script>
+        async function checkURL(event) {
+            event.preventDefault(); // Prevents the default form submission behavior
+
+            const text = document.getElementById('check_url').value; // Get the input text
+            const response = await fetch('/check-url', { // Make a POST request to your FastAPI endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+
+            const result = await response.json(); // Parse the JSON response
+
+            // Update the page with the response
+            document.getElementById('result').innerText = result.status;
+        }
+        async function addURL(event) {
+            event.preventDefault(); // Prevents the default form submission behavior
+
+            const text = document.getElementById('check_url').value; // Get the input text
+            const response = await fetch('/check-url', { // Make a POST request to your FastAPI endpoint
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ text: text })
+            });
+
+            const result = await response.json(); // Parse the JSON response
+
+            // Update the page with the response
+            document.getElementById('result').innerText = result.status;
+        }
+    </script>
 </head>
 <body>
     <div class="container">
         <h1>URL Guardian</h1>
-        <div class="input-group">
-            <input type="text" id="checkUrlInput" placeholder="Enter URL to check">
-            <button onclick="checkURL()">Check URL</button>
-        </div>
-        <div class="input-group">
-            <input type="text" id="addUrlInput" placeholder="Enter URL to add">
-            <button onclick="addURL()">Add URL</button>
-        </div>
-        <p id="result"></p>
+        <label for="check_url">Enter text to check URLs:</label> <!-- Label for the first textarea -->
+        <textarea id="check_url" class="large-input"></textarea>
+        <button onclick="checkURL()">Check URL</button>
+        <label for="add_url">Enter URL to add:</label> <!-- Label for the second textarea -->
+        <textarea id="add_url" class="large-input"></textarea>
+        <button onclick="addURL()">Add URL</button>
     </div>
-
-    <script>
-        async function checkURL() {
-            const url = document.getElementById("checkUrlInput").value;
-            const response = await fetch('/check-url', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ url: url })
-            });
-            const result = await response.json();
-            document.getElementById("result").textContent = 'Check Result: ' + result.status;
-        }
-
-        async function addURL() {
-            const url = document.getElementById("addUrlInput").value;
-            const response = await fetch('/add-url', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ url: url })
-            });
-            const result = await response.json();
-            document.getElementById("result").textContent = 'Add Result: ' + result.status;
-        }
-    </script>
 </body>
 </html>
