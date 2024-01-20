@@ -64,3 +64,5 @@ async def check_url(url_check_request: URLCheckRequest, request: Request):
             return {"status": "URL(s) are malware"}
         else:
             return {"status": "URL(s) are safe"}
+    else:
+        return {"status": "URL(s) are safe"}

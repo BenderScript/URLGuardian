@@ -5,88 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Guardian</title>
-    <style>
-        body {
-            background-image: url('static/inside_line_art.png'); /* Ensuring background image is loaded */
-            background-size: cover;
-            background-repeat: no-repeat;
-            background-attachment: fixed;
-            background-position: center;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #f4f4f4;
-        }
-        .container {
-            text-align: center;
-            background-color: rgba(255, 255, 255, 0.5);
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            max-width: 600px;
-            width: 90%;
-        }
-        h1 {
-            color: #FFFFFF; /* Lighter color for "URL Guardian" */
-        }
-        textarea {
-            width: calc(40ch + 20px);
-            min-height: calc(3em + 10px);
-            margin-bottom: 10px;
-            padding: 10px;
-            box-sizing: border-box;
-            overflow-y: auto;
-        }
-        #check-url-button {
-            margin-bottom: 40px; /* Adjust this value as needed */
-        }
-        button {
-            background-color: #6E7B8B;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 10px 20px;
-            cursor: pointer;
-            margin-bottom: 20px;
-        }
-        button:hover {
-            background-color: #556B7C;
-        }
-        /* Change color of labels */
-        label {
-            color: #4B5563; /* Set to the same color as the button's background */
-        }
-
-        /* Change color of URL Guardian */
-        #url_guardian {
-            color: #4B5563; /* Set to the same color as the button's background */
-        }
-    </style>
+    <link rel="stylesheet" href="static/style.css">
     <script>
-        async function checkURL(event) {
-            event.preventDefault(); // Prevents the default form submission behavior
-
-            const text = document.getElementById('check_url').value; // Get the input text
-            const response = await fetch('/check-url', { // Make a POST request to your FastAPI endpoint
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ text: text })
-            });
-
-            const result = await response.json(); // Parse the JSON response
-
-            // Update the page with the response
-            document.getElementById('result').innerText = result.status;
+        function updateResult(data) {
+            const resultDiv = document.getElementById('check_url_result');
+            resultDiv.innerHTML = data.status; // or any other formatted data
         }
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.getElementById('check_url_button').addEventListener('click', async (event) => {
+                event.preventDefault(); // Prevents the default button click behavior
+
+                const text = document.getElementById('url_text').value; // Get the input text
+                const response = await fetch('/check-url', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ text: text })
+                });
+
+                const result = await response.json(); // Parse the JSON response
+
+                // document.getElementById('check_url_result').innerText = result.status;
+                updateResult(result);
+            });
+        });
         async function addURL(event) {
             event.preventDefault(); // Prevents the default form submission behavior
 
@@ -102,19 +45,20 @@
             const result = await response.json(); // Parse the JSON response
 
             // Update the page with the response
-            document.getElementById('result').innerText = result.status;
+            document.getElementById('check_url_result').innerText = result.status;
         }
     </script>
 </head>
 <body>
     <div class="container">
         <h1 id="url_guardian">URL Guardian</h1>
-        <label for="check_url">Enter prompt to check URLs:</label> <!-- Label for the first textarea -->
-        <textarea id="check_url" class="large-input"></textarea>
-        <button id="check-url-button" onclick="checkURL()">Check URL</button>
-        <label for="add_url">Enter URL to add:</label> <!-- Label for the second textarea -->
-        <textarea id="add_url" class="large-input"></textarea>
-        <button onclick="addURL()">Add URL</button>
+        <label for="url_text">Enter prompt to check URLs:</label> <!-- Label for the first textarea -->
+        <textarea id="url_text" class="large-input"></textarea>
+        <button id="check_url_button">Check URL</button>
+        <div id="check_url_result" class="result-container"></div>
+        <label for="add_url_text">Enter URL to add:</label> <!-- Label for the second textarea -->
+        <textarea id="add_url_text" class="large-input"></textarea>
+        <button id="add-url-button" onclick="addURL(event)">Add URL</button>
     </div>
 </body>
 </html>
