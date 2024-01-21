@@ -39,7 +39,7 @@ body {
     display: flex; /* Flexbox layout */
     align-items: center; /* Center content vertically */
     justify-content: center; /* Center content horizontally */
-    color: transparent; /* Make text transparent */
+    color: black; /* Change to a visible color */
     margin-bottom: 20px; /* Adjust this value as needed */
 }
 

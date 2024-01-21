@@ -1,20 +1,32 @@
 import re
 
+# https://gist.github.com/dperini/729294#gistcomment-1480671
+
+URL_REGEX = re.compile(
+    # Same pattern as before but without ^ and $
+    r"(?:(?:(?:https?|ftp):)?//)"
+    r"(?:\S+(?::\S*)?@)?"
+    r"(?:"
+    r"(?!(?:10|127)(?:\.\d{1,3}){3})"
+    r"(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})"
+    r"(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})"
+    r"(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])"
+    r"(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}"
+    r"(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))"
+    r"|"
+    r"(?:"
+    r"(?:"
+    r"[a-z0-9\u00a1-\uffff]"
+    r"[a-z0-9\u00a1-\uffff_-]{0,62}"
+    r")?"
+    r"[a-z0-9\u00a1-\uffff]\."
+    r")+"
+    r"(?:[a-z\u00a1-\uffff]{2,}\.?)"
+    r")"
+    r"(?::\d{2,5})?"
+    r"(?:[/?#]\S*)?"
+    , re.UNICODE | re.I
+)
 
 def extract_urls(text):
-    # Regex pattern for finding URLs including those with IPv4, IPv6 addresses, and optional http/https
-    url_pattern = (
-        r'(?:https?://)?'  # http:// or https:// (optional)
-        r'(?:'  # One of:
-        r'(?:\d{1,3}\.){3}\d{1,3}'  # IPv4 address
-        r'|'  # or
-        r'\[?(?:[A-Fa-f0-9]{1,4}:){7}[A-Fa-f0-9]{1,4}\]?'  # IPv6 address
-        r'|'  # or
-        r'(?:[-\w.]|(?:%[\da-fA-F]{2}))+'  # domain name
-        r')'
-        r'(?:/\S*)?'  # Path (optional)
-    )
-    # Finding all matches in the text
-    urls = re.findall(url_pattern, text)
-    return urls
-
+    return URL_REGEX.findall(text)

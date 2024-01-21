@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="static/style.css">
     <script>
         function updateResult(data) {
-            const resultDiv = document.getElementById('check_url_result');
+            const resultDiv = document.getElementById('result_div');
             resultDiv.innerHTML = data.status; // or any other formatted data
         }
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -26,7 +26,6 @@
 
                 const result = await response.json(); // Parse the JSON response
 
-                // document.getElementById('check_url_result').innerText = result.status;
                 updateResult(result);
             });
         });

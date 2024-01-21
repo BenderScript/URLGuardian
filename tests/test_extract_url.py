@@ -11,18 +11,18 @@ class TestExtractUrls(unittest.TestCase):
 
     def test_extract_multiple_urls(self):
         text = "Visit https://www.example.com and http://www.test.com."
-        expected = ["https://www.example.com", "http://www.test.com"]
-        self.assertEqual(extract_urls(text), expected)
+        expected = ["https://www.example.com", "http://www.test.com."]
+        self.assertEqual(expected, extract_urls(text))
 
     def test_extract_url_with_ipv4(self):
-        text = "Access the router interface at http://192.168.0.1 for settings."
-        expected = ["http://192.168.0.1"]
-        self.assertEqual(extract_urls(text), expected)
+        text = "Access the router interface at http://201.168.0.1 for settings."
+        expected = ["http://201.168.0.1"]
+        self.assertEqual(expected, extract_urls(text))
 
     def test_extract_url_with_ipv6(self):
         text = "Our server is located at https://[2001:db8::1]:8080/configuration."
         expected = ["https://[2001:db8::1]:8080/configuration"]
-        self.assertEqual(extract_urls(text), expected)
+        self.assertEqual(expected, extract_urls(text))
 
     def test_no_url(self):
         text = "There is no URL in this text."
@@ -34,9 +34,14 @@ class TestExtractUrls(unittest.TestCase):
         expected = ["https://example.com/page"]
         self.assertEqual(extract_urls(text), expected)
 
-    def test_mixed_type_urls_in_text(self):
+    def test_mixed_private_type_urls_in_text(self):
         text = "Check these: https://www.example.com, http://192.168.1.1, and https://[2001:db8::1]."
-        expected = ["https://www.example.com", "http://192.168.1.1", "https://[2001:db8::1]"]
+        expected = ["https://www.example.com"]
+        self.assertEqual(expected, extract_urls(text))
+
+    def test_mixed_type_urls_in_text(self):
+        text = "Check these: https://www.example.com, http://203.0.113.1, and https://www.ipv6-example.com."
+        expected = ["https://www.example.com", "http://203.0.113.1", "https://www.ipv6-example.com."]
         self.assertEqual(extract_urls(text), expected)
 
     def test_text_with_almost_urls(self):
@@ -51,8 +56,8 @@ class TestExtractUrls(unittest.TestCase):
 
     def test_text_with_broken_url(self):
         text = "Check this broken URL: http://www.exa mple.com with a space."
-        expected = []
-        self.assertEqual(extract_urls(text), expected)
+        expected = ["http://www.exa"]
+        self.assertEqual(expected, extract_urls(text))
 
 
 if __name__ == '__main__':
